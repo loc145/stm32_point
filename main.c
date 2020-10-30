@@ -1,32 +1,10 @@
 /**
   ******************************************************************************
   * File Name          : main.c
-  * Description        : Main program body
+  * Description        : loczing9c
   ******************************************************************************
   *
   * COPYRIGHT(c) 2020 STMicroelectronics
-  *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
@@ -59,11 +37,10 @@ static void MX_USART1_UART_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
 uint16_t adc12;
 uint8_t do_am;
 char strInt[16];
+/* USER CODE END 0 */
 
 int main(void)
 {
@@ -86,8 +63,8 @@ int main(void)
   MX_USART1_UART_Init();
 
   /* USER CODE BEGIN 2 */
-	LCD_Init();
-	HAL_ADC_Start(&hadc);
+  LCD_Init();
+  HAL_ADC_Start(&hadc);
 	
   /* USER CODE END 2 */
 
@@ -96,34 +73,30 @@ int main(void)
   while (1)
   {
   /* USER CODE END WHILE */
-adc12 = HAL_ADC_GetValue(&hadc);
-  /* USER CODE BEGIN 3 */
+	adc12 = HAL_ADC_GetValue(&hadc);
+  /* USER CODE BEGIN 3 */ 
 	do_am = (4095-adc12)*20/819;
 	LCD_Clear();
 	LCD_GotoXY(0, 0);
 	LCD_Puts("do_am: ");
-		sprintf(strInt, "%d", do_am);
-		LCD_Puts(strInt);
-		LCD_Puts("%");
-		
+	sprintf(strInt, "%d", do_am);
+	LCD_Puts(strInt);
+	LCD_Puts("%");	
 	LCD_GotoXY(1, 0);
 		if(do_am<=3) LCD_Puts("Not in the Soil");
 		else if(do_am<=42) LCD_Puts("DRY");
 		else if(do_am<=64) LCD_Puts("HUMID");
-		else LCD_Puts("Very HUMID");
-		
-		HAL_UART_Transmit_IT(&huart1, (uint8_t*)strInt, sprintf(strInt, "%d", do_am));
-		HAL_Delay(3000);
+		else LCD_Puts("Very HUMID");	
+	HAL_UART_Transmit_IT(&huart1, (uint8_t*)strInt, sprintf(strInt, "%d", do_am));
+	HAL_Delay(3000);
   }
   /* USER CODE END 3 */
-
 }
 
 /** System Clock Configuration
 */
 void SystemClock_Config(void)
 {
-
   RCC_OscInitTypeDef RCC_OscInitStruct;
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
   RCC_PeriphCLKInitTypeDef PeriphClkInit;
@@ -190,7 +163,6 @@ void MX_ADC_Init(void)
 /* USART1 init function */
 void MX_USART1_UART_Init(void)
 {
-
   huart1.Instance = USART1;
   huart1.Init.BaudRate = 9600;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
@@ -202,7 +174,6 @@ void MX_USART1_UART_Init(void)
   huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
   huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
   HAL_HalfDuplex_Init(&huart1);
-
 }
 
 /** Configure pins as 
@@ -214,7 +185,6 @@ void MX_USART1_UART_Init(void)
 */
 void MX_GPIO_Init(void)
 {
-
   GPIO_InitTypeDef GPIO_InitStruct;
 
   /* GPIO Ports Clock Enable */
@@ -243,7 +213,6 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
 }
 
 /* USER CODE BEGIN 4 */
@@ -269,13 +238,4 @@ void assert_failed(uint8_t* file, uint32_t line)
 }
 
 #endif
-
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-*/ 
-
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
