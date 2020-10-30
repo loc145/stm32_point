@@ -1,7 +1,7 @@
 # STM32
 @Cách thêm thư viện lcd trong STM32 IDE:
-  lcd.c --> Src
-  lcd.h --> Inc
+  lcd.c --> Src  
+  lcd.h --> Inc  
 @Cách thêm thư viện lcd trong Keil C V5:
   <>Hiển thị trong Keil C:
     lcd.c --> Drivers/CMSIS
