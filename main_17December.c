@@ -2,9 +2,9 @@
 #include "lcd.h"
 
 #define portM0 		GPIOF
-#define pinM0			GPIO_PIN_0
+#define pinM0		GPIO_PIN_0
 #define portM1 		GPIOF
-#define pinM1			GPIO_PIN_1
+#define pinM1		GPIO_PIN_1
 #define portVan 	GPIOA
 #define pinVan		GPIO_PIN_4
 
@@ -33,9 +33,9 @@ int main(void)
   MX_ADC_Init();
   MX_USART1_UART_Init();
 
-	LCD_Init();
-	HAL_ADC_Start(&hadc);
-	HAL_UART_Receive_IT(&huart1, Rx_data, 2);
+  LCD_Init();
+  HAL_ADC_Start(&hadc);
+  HAL_UART_Receive_IT(&huart1, Rx_data, 2);
   while (1)
   {
 			LCD_Clear();	
