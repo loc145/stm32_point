@@ -17,7 +17,7 @@ static void MX_GPIO_Init(void);
 static void MX_ADC_Init(void);
 static void MX_USART1_UART_Init(void);
 
-uint8_t Rx_data[2], do_am;
+uint8_t Rx_data[2], do_am[1];
 uint8_t Point1_Set;
 //Rx_data[0] = 1<ASCII>?
 //Rx_data[1] = Receive Point1_Set;
@@ -46,15 +46,15 @@ int main(void)
 			LCD_Puts("%");
 				
 			adc_value = HAL_ADC_GetValue(&hadc);
-			do_am = (4095-adc_value)*20/819;
+			do_am[0] = (4095-adc_value)*20/819;
 				
 			LCD_GotoXY(0, 0);
 			LCD_Puts("Do am: ");
-			sprintf(strInt, "%d", do_am);
+			sprintf(strInt, "%d", do_am[0]);
 			LCD_Puts(strInt);
 			LCD_Puts("%");
 				
-			if(do_am < Point1_Set){
+			if(do_am[0] < Point1_Set){
 				HAL_GPIO_WritePin(portVan, pinVan, GPIO_PIN_SET);
 				LCD_GotoXY(0, 12);
 				LCD_Puts("Von");
@@ -71,7 +71,7 @@ int main(void)
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {	
 	if(Rx_data[0] == 49){
-		HAL_UART_Transmit(&huart1, (uint8_t*)do_am, sizeof(do_am), 1000);
+		HAL_UART_Transmit(&huart1, do_am, sizeof(do_am), 500);
 		HAL_UART_Receive_IT(&huart1, Rx_data, 2);
 		Point1_Set = Rx_data[1];
 	}
