@@ -56,7 +56,7 @@ int main(void)
 			LCD_Puts(strInt);
 			LCD_Puts("%");
 				
-			if(3 < do_am[0] < Point1_Set){
+			if(3 <= do_am[0] < Point1_Set){
 				HAL_GPIO_WritePin(portVan, pinVan, GPIO_PIN_SET);
 				LCD_GotoXY(0, 12);
 				LCD_Puts("Von");
