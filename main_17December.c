@@ -33,6 +33,8 @@ int main(void)
   MX_ADC_Init();
   MX_USART1_UART_Init();
 
+  HAL_GPIO_WritePin(portM0, pinM0, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(portM1, pinM1, GPIO_PIN_RESET);
   LCD_Init();
   HAL_ADC_Start(&hadc);
   HAL_UART_Receive_IT(&huart1, Rx_data, 2);
